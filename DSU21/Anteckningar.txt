@@ -19,7 +19,12 @@ Vi kommer köra postgres
 
 När databasen ska skapas
 
-Gör en migrering
+
+Migrations
+	dotnet ef migrations add InitialCreate
+
+Uppdatera
+	dotnet ef database update
 
 Poco
 	Plain old CLR object
@@ -32,3 +37,23 @@ Poco
 	Gå ner ett steg: cd..
 	byta: använd tabb
 	Gamla kommandon: pil upp och ner
+
+
+
+	Köra mot SQL lite
+	Microsoft.EntityFrameworkCore.Sqlite
+
+	När körs frågan?
+	It is enumerated by a foreach (C#) or For Each (Visual Basic) statement.
+It is enumerated by a collection operation such as ToArray, ToDictionary, or ToList.
+LINQ operators such as First or Any are specified in the outermost part of the query.
+The following methods are called: the Load extension method on a DbSet, 
+DbEntityEntry.Reload, and Database.ExecuteSqlCommand.
+
+Främmande nycklar
+Eager loading
+lazy loading
+
+Deferred
+
+

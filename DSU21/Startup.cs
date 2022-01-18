@@ -1,4 +1,5 @@
 using DSU21.Data;
+using DSU21.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,9 +26,16 @@ namespace DSU21
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration["ConnectionString:Default"];
+            //connection = Configuration["ConnectionString:Develop"];
             services.AddDbContext<AppDbContext>(
-                options => options.UseNpgsql(Configuration.GetConnectionString("Default"),
+                options => options.UseNpgsql(connection,
                 options => options.SetPostgresVersion(new Version(9, 5))));
+
+            //services.AddDbContext<AppDbContext>(
+            //    options => options.UseSqlite(connection));
+
+            services.AddScoped<IDbRepository, DbRepository>();
             services.AddControllersWithViews();
         }
 

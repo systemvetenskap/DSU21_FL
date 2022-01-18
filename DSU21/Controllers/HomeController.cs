@@ -1,4 +1,5 @@
 ﻿using DSU21.Models;
+using DSU21.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,14 +13,20 @@ namespace DSU21.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IDbRepository _repo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IDbRepository repo)
         {
             _logger = logger;
+           _repo = repo;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            // seed database
+            var pirate = _repo.GetPirateById(4);
+            //var ship = await _repo.AddShipAsync("Powder cannons");
+            var ship = _repo.GetShip(4546);
             return View();
         }
 
