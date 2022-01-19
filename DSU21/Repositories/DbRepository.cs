@@ -132,7 +132,12 @@ namespace DSU21.Repositories
             
             SeedPirates();
         }
-
+        public void UpdatePirate(Pirate pirate)
+        {
+            pirate.Level = 2;
+           //var pi
+            _db.SaveChanges();
+        }
         public Pirate GetPirateById(int id)
         {
             // var pirate = _db.Pirates.Find(id);

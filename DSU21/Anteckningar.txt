@@ -57,3 +57,11 @@ lazy loading
 Deferred
 
 
+Annotations
+https://docs.microsoft.com/en-us/ef/ef6/modeling/code-first/data-annotations
+
+
+Inlogg
+lägg till nuget
+Microsoft.AspNetCore.Identity
+Microsoft.AspNetCore.Identity.EntityFrameworkCore

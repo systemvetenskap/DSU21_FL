@@ -3,6 +3,7 @@ using DSU21.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,10 +33,25 @@ namespace DSU21
                 options => options.UseNpgsql(connection,
                 options => options.SetPostgresVersion(new Version(9, 5))));
 
+            services.AddDbContext<LoginDbContext>(
+                options => options.UseNpgsql(connection,
+                options => options.SetPostgresVersion(new Version(9, 5))));
+
             //services.AddDbContext<AppDbContext>(
             //    options => options.UseSqlite(connection));
-
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<LoginDbContext>(); ;
             services.AddScoped<IDbRepository, DbRepository>();
+            
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 5;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+            });
+            
             services.AddControllersWithViews();
         }
 
@@ -57,6 +73,7 @@ namespace DSU21
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
