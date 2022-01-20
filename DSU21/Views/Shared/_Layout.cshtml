@@ -1,4 +1,6 @@
 ﻿<!DOCTYPE html>
+@using System.Security.Claims
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,6 +26,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @{ if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logga ut</a>
+
+                                </li>
+                            }
+                        }
+
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+
+                                var claims = (ClaimsIdentity)User.Identity;
+                                var fullname = claims.FindFirst(x => x.Type == "FullName").Value;
+                            }
+                        }
+                        
                     </ul>
                 </div>
             </div>

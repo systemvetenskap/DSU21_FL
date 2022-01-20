@@ -51,6 +51,10 @@ namespace DSU21
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
             });
+            services.AddAuthorization(o =>
+            {
+                o.AddPolicy("CaptainsOnly", policy => policy.RequireClaim("Level","5"));
+            });
             
             services.AddControllersWithViews();
         }
