@@ -72,3 +72,11 @@ Bara för att en person har en roll, måste inte hen ha färdigheter
 
 Vi kör Claims!
 Ett, eller flera claims kan utgöra en policy
+
+TEST
+
+Triple A
+
+// Arrange
+// Act
+// Assert
