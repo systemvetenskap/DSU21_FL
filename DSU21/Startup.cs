@@ -1,5 +1,6 @@
 using DSU21.Data;
 using DSU21.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,9 @@ namespace DSU21
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration["ConnectionString:Default"];
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            options.Cookie.Name="Cookie");
             //connection = Configuration["ConnectionString:Develop"];
             services.AddDbContext<AppDbContext>(
                 options => options.UseNpgsql(connection,
@@ -51,6 +55,16 @@ namespace DSU21
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
             });
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.AccessDeniedPath = "/Account/AccessDenied";
+            //    options.Cookie.Name = "Cookie";
+            //    options.Cookie.HttpOnly = true;
+            //    options.ExpireTimeSpan = TimeSpan.FromMinutes(720);
+            //    options.LoginPath = "/Account/Login";
+            //    options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+            //    options.SlidingExpiration = true;
+            //});
             services.AddAuthorization(o =>
             {
                 o.AddPolicy("CaptainsOnly", policy => policy.RequireClaim("Level","5"));
@@ -76,7 +90,6 @@ namespace DSU21
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
