@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace DSU21.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -23,7 +22,6 @@ namespace DSU21.Controllers
            _repo = repo;
         }
 
-        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             // seed database
